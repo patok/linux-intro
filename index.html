@@ -1,0 +1,831 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Linux Intro</title>
+
+		<meta name="description" content="Presentation about Linux OS">
+		<meta name="author" content="Patricio Keilty">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+		<link rel="stylesheet" href="css/custom.css">
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Linux</h1>
+					<h3>The free open-source OS</h3>
+					<p>
+						<small>Created by <a href="http://twitter.com/patokeilty">@patokeilty</a></small>
+					</p>
+					<p>
+                        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+                            <img alt="Licencia Creative Commons" style="border-width:0" src="img/cc-by-nc-sa-88x31.png" />
+                        </a>
+					</p>
+					<p>
+Disclosure: ideas and materials borrowed from <a href="http://training.linuxfoundation.org/" >Linux Foundation online courses and material</a>
+					</p>
+				</section>
+
+				<section>
+					<h2>Linux History</h2>
+					<p>
+<ul>
+<li class="fragment roll-in">Created by Linus Torvalds, a student in Helsinki, Finland, in 1991 he wrote his own operating system kernel <img src="img/young-linus.gif" style="float: right;"></li>
+<li class="fragment roll-in">In 1992, licensed under GPL, by GNU project (FSF)</li>
+<li class="fragment roll-in">Mayor companies announced support for the Linux platform in 1998 (IBM, Oracle)</li>
+</ul>
+					</p>
+				</section>
+
+			<section>
+				<section>
+					<h2>Linux philosophy</h2>
+					<p>Borrows heavily from the UNIX operating system because it was written to be a free and open source version of UNIX.
+<ul>
+<li class="fragment">Files stored in hierarchical filesystem, with top node root or "/"</li>
+<li class="fragment">Processes, devices, and network sockets all represented by file-like objects, can be worked using regular files utilities</li>
+<li class="fragment">fully multitasking</li>
+<li class="fragment">multiuser</li>
+<li class="fragment">built-in networking and service processes (daemons)</li>
+</ul>
+				</section>
+
+				<section>
+					<h2>Linux philosophy (cont)</h2>
+					<p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/H7Uz692S6T4" frameborder="0" allowfullscreen></iframe>
+				</section>
+			</section>
+
+				<section>
+					<h2>Basic terminology</h2>
+<div style="font-size: 0.8em;">
+<ul>
+<li class="fragment">kernel: core of the OS, allow control hardware from within apps</li>
+<li class="fragment">distros: distribution of programs combined with Linux kernel, e.g.: Ubuntu, Suse, Fedora</li>
+<li class="fragment">boot loader: program that boots OS, e.g.: GRUB, IsoLinux</li>
+<li class="fragment">service: program that runs as background process, e.g.: httpd, nfsd, ntpd, ftpd, named</li>
+<li class="fragment">filesystem: storing and organizing files, e.g.: EXT3, EXT4, FAT, NTFS, </li>
+<li class="fragment">X windows: standard toolkit and protocol to build graphical user interfaces</li>
+<li class="fragment">desktop environment: a graphical user interface on top of X, e.g.: GNOME, KDE, Xfce and Fluxbox</li>
+<li class="fragment">command line: text interface for typing commands on top of the operating system.</li>
+<li class="fragment">shell: command line interpreter, e.g.: bash, tcsh and zsh.</li>
+</ul>
+</div>
+				</section>
+
+
+
+
+				<section>
+
+					<section>
+						<h2>Linux structure</h2>
+                        <h3>partitions & filesystem</h3>
+						<p>A partition is a logical part of the disk, whereas a filesystem is a method of storing/finding files on a hard disk</p>
+Windows vs Linux
+<table style="border: 1px solid;">
+<tbody>
+<tr>
+<td >&nbsp;</td>
+<td ><span style="color: #ffffff;"><strong>Windows</strong></span></td>
+<td ><strong>Linux</strong></span></td>
+</tr>
+<tr>
+<td >Partition</td>
+<td >Disk1</td>
+<td >/dev/sda1</td>
+</tr>
+<tr>
+<td >Filesystem type</td>
+<td >NTFS/FAT32</td>
+<td >EXT3/EXT4/XFS...</td>
+</tr>
+<tr>
+<td >Mounting Parameters</td>
+<td >DriveLetter</td>
+<td >MountPoint</td>
+</tr>
+<tr>
+<td >Base Folder where OS is stored</td>
+<td >C drive</td>
+<td >/</td>
+</tr>
+</tbody>
+</table>
+					</section>
+
+
+
+
+					<section>
+						<h2>Filesystem Hierarchy Standard</h2>
+						<p>Linux systems store their important files according to a standard layout called the Filesystem Hierarchy Standard, or FHS.</p>
+
+see external link <a href="http://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard#Directory_structure">Wikipedia FHS entry</a>
+					</section>
+
+				</section>
+
+				<section>
+					<h2>Boot process</h2>
+					<p>
+<div style="float: right; width: 25%;">
+<img src="img/boot-flowchart.jpg">
+</div>
+<div style="width: 75%">
+The Linux boot process is the procedure for initializing the system, consists of the following steps:
+<ul style="font-size: 0.65em;">
+<li class="fragment">BIOS Post</li>
+<li class="fragment">Master Boot Records (MBR/UEFI) and Boot Loader</li>
+<ol>
+<li class="fragment">first stage: MBR finds booteable partition, looks for boot loader</li>
+<li class="fragment">second stage: GRUB prompts OS list, loads kernel into memory</li>
+</ol>
+<li class="fragment">Linux kernel executed: initializes and configures memory and hardware attached</li>
+<li class="fragment">initramfs filesystem image contains programs and binary files that perform all actions needed to mount the proper root filesystem</li>
+<li class="fragment">once the kernel has set up all its hardware and mounted the root filesystem, the kernel runs the /sbin/init program</li>
+<li class="fragment">text mode login</li>
+<li class="fragment">X Window system</li>
+</ul>
+</div>
+					</p>
+				</section>
+
+				<section>
+					<h2>Documentation</h2>
+					<p>
+						Main sources of information
+<ul>
+<li class="fragment"><strong>man</strong> pages
+<pre><code data-trim>
+$ man 3 printf
+$ man -a printf
+</code></pre>
+</li>
+<li class="fragment">GNU <strong>info</strong>
+<pre><code data-trim>
+$ info
+$ info login
+</code></pre></li>
+<li class="fragment"><strong>help</strong> command and <strong>--help</strong> switch/option
+<pre><code data-trim>
+$ cat --help
+$ help cd 
+</code></pre>
+</li>
+<li class="fragment">Google, StackExchange, LinuxQuestions.org, etc!</li>
+</ul>
+					</p>
+
+				</section>
+
+
+				<section>
+					<h2>CLI (command line interpreter)</h2>
+					<p>
+Most input lines entered at the shell prompt have three basic elements:
+<ul>
+    <li>command</li>
+    <li>options</li>
+    <li>arguments</li>
+</ul>
+<p class="fragment">
+The command is the name of the program, may be followed by options (or switches) that modify what the command may do. Options start with one or two dashes in order to differentiate them from arguments, which represent what the command operates on, e.g. -p or --print,
+<pre class="fragment"><code data-trim>
+$ tail -f /tmp/adb.log
+</code></pre>
+				</section>
+
+			<section>
+				<section>
+					<h2>Basic Commands</h2>
+					<p>
+<ul>
+<li class="fragment">login, exit, id, who</li>
+<li class="fragment">locate commands: which, whereis
+<pre><code data-trim>
+$ which diff
+</code></pre>
+</li>
+<li class="fragment">accesing dirs: cd
+<pre><code data-trim>
+$ cd; cd ~ # change to home directory
+$ cd ~/tmp/;
+$ cd - # change to previous
+$ cd ..; cd ../../ # move 1, 2 levels up
+</code></pre></li>
+<li class="fragment">explore dirs: pwd, ls, tree
+<pre><code data-trim>
+$ pwd
+$ ls -alt .
+$ tree -L 1 /home
+</code></pre></li>
+</ul>
+					</p>
+
+				</section>
+
+				<section>
+					<h2>Basic Commands (cont)</h2>
+					<p>
+<ul>
+<li class="fragment">create/remove files: touch, mkdir, rm, cp, mv
+<pre><code data-trim>
+$ touch new_file
+$ mkdir test-dir
+$ rm new_file
+$ rm -r test-dir
+</code></pre></li>
+<li class="fragment">inspecting file content: cat, tac, tail, head, less
+<pre><code data-trim>
+$ cat ~/.profile
+$ tail -f /var/log/syslog
+</code></pre>
+</li>
+<li class="fragment">help: man, info, echo
+<pre><code data-trim>
+$ man ls
+$ info mysql
+$ echo 'hola'
+</code></pre>
+</li>
+</ul>
+					</p>
+
+				</section>
+
+				<section>
+					<h2>Basic Commands (cont)</h2>
+					<p>
+<ul>
+</li>
+<li class="fragment">navigate directory history: pushd, popd, dirs
+<pre><code data-trim>
+$ pushd ./tmp
+$ dirs
+$ popd
+$ dirs
+</code></pre>
+</li>
+</ul>
+					</p>
+
+				</section>
+
+			</section>
+
+
+
+
+			<section>
+				<section>
+					<h2>Standard File Streams</h2>
+					<p>By default there are 3 standard file streams (or descriptors) available:
+<ul>
+<li class="fragment">standard input (standard in or <strong>stdin</strong>), default: keyboard</li>
+<li class="fragment">standard output (standard out or <strong>stdout</strong>), default: console</li>
+<li class="fragment">standard error (or <strong>stderr</strong>), default: console</li>
+</ul>
+					</p>
+<p class="fragment">all open files are represented internally by what are called file descriptors, using numbers starting at zero: stdin is file descriptor 0, stdout is file descriptor 1, and stderr is file descriptor 2
+				</section>
+
+				<section>
+					<h2>I/O Redirection</h2>
+					<p>We can redirect the 3 standard filestreams so that we can get input from either a file or another command instead of from our keyboard, and we can write output and errors to files or send them as input for subsequent commands, e.g.
+<ul>
+<li class="fragment">redirect <strong>stdin</strong>
+<pre><code data-trim>
+$ less < ~/.profile
+$ cat ~/.profile | less
+</code></pre>
+</li>
+<li class="fragment">redirect <strong>stdout</strong>
+<pre><code data-trim>
+$ ls -a ~ > /tmp/ls-output.txt
+</code></pre>
+</li>
+<li class="fragment">redirect <strong>stderr</strong>
+<pre><code data-trim>
+$ ls /tmp/inexistent 2> /tmp/error.txt
+$ ls /tmp/inexistent > /tmp/error.txt 2>&1
+</code></pre>
+</li>
+</ul>
+					</p>
+
+				</section>
+
+				<section>
+					<h2>Pipes</h2>
+					<p>The UNIX/Linux philosophy is to have many simple and short programs (or commands) cooperate together to produce quite complex results.
+<p class="fragment">In order to accomplish this, extensive use of pipes (| symbol)is made; you can pipe the output of one command or program into another as its input
+<ul>
+<li class="fragment">
+<pre><code data-trim>
+$ ls -alt /tmp/ | grep 'txt' |sort -u
+</code></pre>
+</li>
+</ul>
+					</p>
+
+				</section>
+
+
+
+				<section>
+					<h2>Search for files</h2>
+					<p>
+<ul>
+<li class="fragment">locate
+<pre><code data-trim>
+$ locate txt   #search files with 'txt' in filename
+$ updatedb     #update locate database
+</code></pre>
+</li>
+<li class="fragment">find
+<pre><code data-trim>
+$ find /usr/lib -name gcc;
+$ find ./dev -name 'README'
+</code></pre></li>
+</ul>
+<div class="fragment">You can use the following wildcards:
+<ul>
+<li>? : matches any single char</li>
+<li>* : matches any string</li>
+<li>[set] : matches any char in set</li>
+<li>[!set] : matches any char NOT in set</li>
+</ul>
+<pre><code data-trim>
+$ find /var/log/ -name syslog*
+</code></pre>
+</div>
+				</section>
+
+
+				<section>
+					<h2>Advanced find options</h2>
+					<p>
+<ul>
+<li class="fragment">to find and list log files 
+<pre><code data-trim>
+$ find /var/log/ -name 'syslog*' -exec ls -alt {} ';'
+</code></pre>
+</li>
+<li class="fragment">find by size
+<pre><code data-trim>
+$ find /var/log/ -size +100k
+</code></pre></li>
+<li class="fragment">find by time
+<pre><code data-trim>
+$ find /var/log/ -ctime +3
+</code></pre></li>
+<li class="fragment"> ... or combined
+<pre><code data-trim>
+$ find /var/log/ -ctime +3 -or -size +100k
+</code></pre></li>
+</ul>
+				</section>
+
+
+
+
+
+			</section>
+
+
+			<section>
+				<section>
+					<h2>Installing software</h2>
+<h3>Package Managers: Two Levels</h3>
+					<p>Package management systems provide two tool levels
+<ul>
+<li class="fragment"><strong>dpkg</strong>, <strong>rpm</strong>: a low-level tool, takes care of the details of unpacking individual packages, running scripts, getting the software installed correctly</li>
+<li class="fragment"><strong>apt-get</strong>, <strong>yum</strong>: high-level tool, works with groups of packages, downloads packages from the vendor, and figures out dependencies.</li>
+</ul>
+
+					</p>
+
+				</section>
+				<section>
+<h2>Package Managers (cont)</h2>
+					<p>
+<table id="pm-table" style="border: 1px solid; font-size: 0.58em;">
+<tbody>
+<tr>
+<td >Operation</td>
+<td ><span style="color: #ffffff;"><strong>RPM</strong></span></td>
+<td ><strong>Deb</strong></span></td>
+</tr>
+<tr>
+<td >Install a package</td>
+<td >rpm –i foo.rpm</td>
+<td >dpkg --install foo.deb</td>
+</tr>
+<tr>
+<td >Install a package with dependencies from repository</td>
+<td >yum install foo</td>
+<td >apt-get install foo</td>
+</tr>
+<tr>
+<td >Remove a package</td>
+<td >rpm –e foo.rpm</td>
+<td >dpkg --remove foo.deb</td>
+</tr>
+<tr>
+<td >Remove a package and dependencies using repository</td>
+<td >yum remove foo</td>
+<td >apt-get remove foo</td>
+</tr>
+<tr>
+<td >Update package to a newer version</td>
+<td >rpm –U foo.rpm</td>
+<td >dpkg --install foo.deb</td>
+</tr>
+<tr>
+<td >Update package using repository and resolving dependencies</td>
+<td >yum update foo</td>
+<td >apt-get upgrade foo</td>
+</tr>
+<tr>
+<td >Update entire system</td>
+<td >yum update</td>
+<td >apt-get dist-upgrade</td>
+</tr>
+<tr>
+<td >Show all installed package</td>
+<td >yum list installed</td>
+<td >dpkg --list</td>
+</tr>
+<tr>
+<td >Get information about an installed package including files</td>
+<td >rpm –qil foo</td>
+<td >dpkg --listfiles foo</td>
+</tr>
+<tr>
+<td >Show available package with "foo" in name</td>
+<td >yum list foo</td>
+<td >apt -cache search foo</td>
+</tr>
+<tr>
+<td >Show all available package</td>
+<td >yum list</td>
+<td >apt-cache dumpavail</td>
+</tr>
+<tr>
+<td >What packages does a file belong to?</td>
+<td >rpm –qf file</td>
+<td >dpkg --search file</td>
+</tr>
+</tbody>
+</table>
+
+
+
+					</p>
+
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>FS: partitions</h2>
+<h3></h3>
+					<p>Each filesystem resides on a hard disk partition. Partitions help to organize the contents of disks according to the kind of data contained and how it is used
+
+<pre class="fragment"><code data-trim>
+$ fdisk -l /dev/sda
+</code></pre>
+
+<p class="fragment">
+separate partitions are often used system programs, regular users data, and temporary files
+
+<ul>
+<li class="fragment">/ (or root)</li>
+<li class="fragment">/home : user data</li>
+<li class="fragment">/tmp : temporary files</li>
+</ul>
+
+					</p>
+				</section>
+				<section>
+					<h2>Mountpoints</h2>
+<h3></h3>
+					<p>The mount command is used to attach a filesystem (which can be local to the computer or on a network) somewhere within the filesystem tree
+
+<pre class="fragment"><code data-trim>
+$ mount /dev/sda5 /home
+$ mount /dev/dvd /media/data
+</code></pre>
+
+<p class="fragment">
+The command df -Th (disk-free) will display information about mounted filesystems including usage statistics about currently used and available space.
+
+<pre class="fragment"><code data-trim>
+$ df -hT
+</code></pre>
+
+					</p>
+				</section>
+
+				<section>
+					<h2>Pseudo fs</h2>
+<h3></h3>
+					<p>Certain filesystems like the one mounted at /proc are called pseudo filesystems because they have no permanent presence anywhere on disk.
+<p>
+The /proc filesystem contains runtime system information (e.g. system memory, devices mounted, hardware configuration, etc)
+
+<ul>
+<li >/proc/cpuinfo</li>
+<li >/proc/interrupts</li>
+<li >/proc/meminfo</li>
+<li >/proc/mounts</li>
+<li >/proc/partitions</li>
+<li >/proc/version</li>
+</ul>
+
+				</p>
+				</section>
+
+			</section>
+
+
+
+
+
+			<section>
+				<section>
+					<h2>FS Architecture</h2>
+<h3>/home</h3>
+					<p>Each user has a home directory, usually placed under <strong>/home</strong>. The /root (slash-root) directory on modern Linux systems is no more than the root user's home directory.
+
+<pre class="fragment"><code data-trim>
+$ ls /home
+</code></pre>
+
+					</p>
+				</section>
+
+				<section>
+					<h2>FS Architecture</h2>
+<h3>/bin , /sbin</h3>
+					<p>The <strong>/bin</strong> directory contains executable binaries, essential commands used in single-user mode, and essential commands required by all system users. e.g. <strong>ps</strong>, <strong>ls</strong>, <strong>cp</strong>
+<p class="fragment">
+note: there are internal shell commands, and external or executable binaries/scripts
+<p class="fragment">
+The <strong>/sbin</strong> directory is used for essential binaries related to system administration, like <strong>ifconfig</strong>, <strong>shutdown</strong>.
+
+<pre class="fragment"><code data-trim>
+$ ls /bin
+$ ls /sbin
+</code></pre>
+
+				</section>
+
+				<section>
+					<h2>FS Architecture</h2>
+<h3>/dev</h3>
+					<p>The <strong>/dev</strong> directory contains device nodes, a type of pseudo-file used by most hardware and software devices, except for network devices.
+<p>
+
+<ul>
+<li >/dev/sda1 : first partition on the first hard disk</li>
+<li >/dev/lp1 : second printer</li>
+<li >/dev/dvd : dvd drive</li>
+<li >/dev/null : black hole!</li>
+</ul>
+
+				</p>
+				</section>
+
+				<section>
+					<h2>FS Architecture</h2>
+<h3>/var, /etc</h3>
+<p>The <strong>/var</strong> directory contains files that are expected to change in size and content as the system is running (var stands for variable)
+<ul>
+<li >/var/log : system log files</li>
+<li >/var/lib : packages and database files</li>
+<li >/var/spool : print queues</li>
+<li >/var/www : web server root directory</li>
+</ul>
+<div  class="fragment">
+<p>The <strong>/etc</strong> directory is the home for system configuration files.
+<ul>
+<li >/etc/resolv.conf : host name to IP address mappings</li>
+<li >/etc/passwd, /etc/shadow : managing user accounts</li>
+<li >/etc/fstab : filesystem mount table</li>
+</ul>
+</div>
+				</section>
+
+				<section>
+					<h2>FS Architecture</h2>
+<h3>/boot</h3>
+<p>The <strong>/boot</strong> directory contains the few essential files needed to boot the system
+
+<ul>
+<li >vmlinuz: the compressed Linux kernel, required for booting</li>
+<li >initramfs: the initial ram filesystem, required for booting, sometimes called initrd, not initramfs</li>
+<li >config: the kernel configuration file, only used for debugging and bookkeeping</li>
+<li >System.map: kernel symbol table, only used for debugging</li>
+</ul>
+
+
+<div  class="fragment">
+<p>The <strong>Grand Unified Bootloader</strong> (GRUB) files (such as /boot/grub/grub.conf) are also found under the /boot directory
+</div>
+				</section>
+
+
+				<section>
+					<h2>FS Architecture</h2>
+<h3>/lib, /media</h3>
+<p><strong>/lib</strong> contains libraries (common code shared by applications and needed for them to run) for the essential programs in /bin and /sbin.
+
+The <strong>/media</strong> directory is typically located where removable media, such as CDs, DVDs and USB drives are mounted
+
+				</section>
+
+				<section>
+					<h2>FS Architecture</h2>
+<h3>Other directories</h3>
+<p>The <strong>/boot</strong> directory contains the few essential files needed to boot the system
+
+<ul>
+<li >/opt : optional application software packages.</li>
+<li >/sys : virtual pseudo-filesystem giving information about the system and the hardware. Can be used to alter system parameters and for debugging purposes.</li>
+<li >/srv : site-specific data served up by the system. Seldom used.</li>
+<li >/tmp : temporary files; on some distributions erased across a reboot and/or may actually be a ramdisk in memory.</li>
+<li >/usr 	Multi-user applications, utilities and data.</li>
+</ul>
+				</section>
+
+
+				<section>
+					<h2>FS Architecture</h2>
+<h3>/usr</h3>
+					<p>The /usr directory contains user space programs and scripts
+<ul>
+<li class="fragment">/usr/include : header files used to compile applications.</li>
+<li class="fragment">/usr/lib : libraries for programs in /usr/bin and /usr/sbin.</li>
+<li class="fragment">/usr/lib64 : 64-bit libraries for 64-bit programs in /usr/bin and /usr/sbin.</li>
+<li class="fragment">/usr/sbin: non-essential system binaries, such as system daemons.</li>
+<li class="fragment">/usr/share : shared data used by applications, generally architecture-independent.</li>
+<li class="fragment">/usr/src : source code, usually for the Linux kernel.</li>
+<li class="fragment">/usr/X11R6 : X Window configuration files; generally obsolete.</li>
+<li class="fragment">/usr/local : data and programs specific to the local machine. Subdirectories include bin, sbin, lib, share, include, etc.</li>
+<li class="fragment">/usr/bin : This is the primary directory of executable commands on the system. </li>
+
+				</section>
+			</section>
+
+			<section>
+				<section>
+					<h2>Comparing files</h2>
+					<p><strong>diff</strong> is used to compare files and directories.
+<ul>
+<li>-c : provides a listing of differences that include 3 lines of context before and after the lines differing in content</li>
+<li>-r : used to recursively compare subdirectories as well as the current directory</li>
+<li>-i : ignore the case of letters</li>
+<li>-w : ignore differences in spaces and tabs (white space)</li>
+</ul>
+
+<pre><code data-trim>
+$ diff .bashrc .bashrc~
+</code></pre>
+
+<p>note: you can compare three files at once using <strong>diff3</strong>
+
+				</section>
+
+				<section>
+					<h2>Applying patches</h2>
+					<p>Many modifications to source code and configuration files are distributed utilizing patches, patch files are actually produced by running diff.
+
+<pre><code data-trim>
+$ patch -p1 < patchfile
+$ patch originalfile patchfile
+</code></pre>
+
+				</section>
+
+				<section>
+					<h2>File utility</h2>
+					<p>In Linux, a file's extension often does not categorize it, rather its content does.
+
+<pre><code data-trim>
+$ file /usr/bin/perl
+</code></pre>
+
+				</section>
+
+
+			</section>
+
+			<section>
+				<section>
+					<h2>Backup & Compress</h2>
+
+<table style="width: 100%; margin-left: auto; margin-right: auto; border: 2px solid white; font-family: 'Courier New'; font-size: 20px;" border="0">
+<tbody>
+<tr>
+<td style="border: 2px solid white;" bgcolor="#003f60" align="center" width="40%"><span style="color: #ffffff;"><strong>Command</strong></span></td>
+<td style="border: 2px solid white;" bgcolor="#003f60" align="center" width="75%"><span style="color: #ffffff;"><strong>Usage</strong></span></td>
+</tr>
+<tr>
+<td ><span >$ tar xvf mydir.tar</span></td>
+<td >Extract all the files in <span >mydir.tar</span> into the <span >mydir</span> directory</td>
+</tr>
+<tr>
+<td ><span >$ tar zcvf mydir.tar.gz mydir</span></td>
+<td >Create the archive and compress with <span >gzip</span></td>
+</tr>
+<tr>
+<td ><span >$ tar jcvf mydir.tar.bz2 mydir</span></td>
+<td >Create the archive and compress with <span >bz2</span></td>
+</tr>
+<tr>
+<td ><span >$ tar Jcvf mydir.tar.xz mydir</span></td>
+<td >Create the archive and compress with <span >xz</span></td>
+</tr>
+<tr>
+<td ><span >$ tar xvf mydir.tar.gz</span></td>
+<td >Extract all the files in <span >mydir.tar.gz</span> into the <span >mydir</span> directory. Note you do <strong>not</strong> have to tell tar it is in <span >gzip</span> format.</td>
+</tr>
+</tbody>
+</table>
+
+				</section>
+
+
+			</section>
+
+
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
